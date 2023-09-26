@@ -50,9 +50,11 @@
             }
         )
         function playm() {
-            var mindex=parseInt($("#music").attr("mindex")) - 1
+            var mindex = parseInt($("#music").attr("mindex")) - 1
+            if (isNaN(audio.duration)) {
                 audio.src = data.music[mindex].audio;
-                $("#music_name").html(data.music[mindex].name);
+            }
+            $("#music_name").html(data.music[mindex].name);
             if ($("#g_play").css("visibility") === "hidden") {
                 $("#g_play").css("visibility", "visible")
                 $("#g_pause").css("visibility", "hidden")
@@ -61,7 +63,7 @@
             } else {
                 $("#g_play").css("visibility", "hidden")
                 $("#g_pause").css("visibility", "visible")
-                //clearTimeout(t);
+                clearTimeout(t);
                 f();
                 audio.play();
             }
