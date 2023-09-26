@@ -14,6 +14,7 @@
     </style>
     <script src="jquery-1.9.1.min.js"></script>
     <script>
+       var audio;
         $(window).ready(
             function(){
                 audio = document.getElementById("music");
@@ -49,7 +50,7 @@
                 $("#timeline").css("width", (curtt / fullt) * 100 + "%");
                 var t1=parseInt(curtt / 60) >= 10 ? parseInt(curtt/ 60) + ":" + (parseInt(curtt % 60) >= 10 ? parseInt(curtt% 60) : "0" + parseInt(curtt% 60)) : "0" + parseInt(curtt / 60) + ":" + (parseInt(curtt% 60) >= 10 ? parseInt(curtt % 60) : "0" + parseInt(curtt % 60));
                 var t2=parseInt(audio.duration / 60) >= 10 ? parseInt(audio.duration / 60) + ":" + (parseInt(audio.duration % 60) >= 10 ? parseInt(audio.duration % 60) : "0" + parseInt(audio.duration % 60)) : "0" + parseInt(audio.duration / 60) + ":" + (parseInt(audio.duration % 60) >= 10 ? parseInt(audio.duration % 60) : "0" + parseInt(audio.duration % 60))
-               console.log(parseInt(curtt / 60) >= 10 ? parseInt(curtt/ 60) + ":" + (parseInt(curtt % 60) >= 10 ? parseInt(curtt% 60) : "0" + parseInt(curtt% 60)) : "0" + parseInt(curtt / 60) + ":" + (parseInt(curtt% 60) >= 10 ? parseInt(curtt % 60) : "0" + parseInt(curtt % 60)))
+               //console.log(parseInt(curtt / 60) >= 10 ? parseInt(curtt/ 60) + ":" + (parseInt(curtt % 60) >= 10 ? parseInt(curtt% 60) : "0" + parseInt(curtt% 60)) : "0" + parseInt(curtt / 60) + ":" + (parseInt(curtt% 60) >= 10 ? parseInt(curtt % 60) : "0" + parseInt(curtt % 60)))
                 $("#time_txt").html(t1+"/"+t2);
                 f();
             }, 500)
@@ -58,8 +59,8 @@
             var objLeft = $("#timebox").offset().left;
             var mouseX = event.clientX + document.body.scrollLeft;
             var objX = mouseX - objLeft;
-            console.log(objX);
-            console.log(objX * audio.duration / parseInt($("#timebox").width()));
+            // console.log(objX);
+            // console.log(objX * audio.duration / parseInt($("#timebox").width()));
             audio.currentTime =objX * audio.duration / parseInt($("#timebox").width());
             $("#timeline").css("width", (objX /parseInt($("#timebox").width()) ) * 100 + "%");
         }
