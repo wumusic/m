@@ -73,12 +73,18 @@
             if (isNaN(audio.duration)) {
                 audio.src = data.music[mindex].audio;
             } else {
-                $("#g_play").css("visibility", "hidden")
-                $("#pause").css("visibility", "visible")
-                //clearTimeout(t);
-                f();
-                audio.currentTime = 0;
-                audio.play();
+                if ($("#g_play").css("visibility") === "hidden") {
+                  
+                    clearTimeout(t);
+                    f();
+                    audio.currentTime = 0;
+                    audio.play();
+                } else {
+                    f();
+                    audio.currentTime = 0;
+                    audio.pause();
+                }
+
             }
         }
 
