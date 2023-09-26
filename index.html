@@ -69,6 +69,19 @@
             }
 
         }
+function replay(){
+if (isNaN(audio.duration)) {
+                        audio.src = data.music[mindex].audio;
+                    }else{
+                        $("#" + obj.attr("id") + "_g_play").css("visibility", "hidden")
+                        $("#" + obj.attr("id") + "_g_pause").css("visibility", "visible")
+                        //clearTimeout(t);
+                        f();
+                        audio.currentTime=0;
+                        audio.play();
+                    }
+}
+
         function prevM() {
             if (parseInt($("#music").attr("mindex")) >1) {
                
@@ -152,7 +165,11 @@
 <body>
     <div style="background-color:#edeaea;width: 100%;height: 80px;display: grid;grid-template-columns: 80px auto;">
         <audio controls="controls" id="music" mindex="1" hidden="hidden"></audio>
-        <div style="background-color: darkgoldenrod;height: 100%;width: 80px;"></div>
+        <div style="background-color: darkgoldenrod;height: 100%;width: 80px;"><svg viewBox="0 0 80 80" fill="#fff">
+            <circle cx="20" cy="50" r="6" ></circle>
+            <path d="m20 50 q10 10 8 -30h20q5 20 -3 28" fill="none" stroke="#fff" stroke-width="4"></path>
+            <circle cx="42" cy="45" r="6" ></circle>
+        </svg></div>
         <div style="display: grid; grid-template-rows: auto 3px;background-color:gray;width: 100%;height: 100%;">
             <div
                 style="background-color: coral; display: grid; grid-template-columns: 40px 40px 40px 40px auto;grid-gap: 6px 6px; align-items: center;text-align: center;padding: 6px;">
@@ -171,7 +188,7 @@
                             <rect width="6" height="18" x="22" y="11"></rect>
                         </g>
                     </svg></div>
-                <div><svg viewBox="0 0 40 40" stroke="#fff" fill="#fff">
+                <div onclick="replay()"><svg viewBox="0 0 40 40" stroke="#fff" fill="#fff">
                         <circle cx="20" cy="20" r="15" stroke-width="3" fill="none"></circle>
                         <!-- <circle cx="20" cy="20" r="8" stroke="black" stroke-width="4" fill="none"></circle> -->
                         <path d="m14 15 a8 8 0 1 1 0 10" stroke-width="4" fill="none" stroke-linecap="round" />
