@@ -69,24 +69,24 @@
             }
 
         }
-function replay(){
-if (isNaN(audio.duration)) {
-                        audio.src = data.music[mindex].audio;
-                    }else{
-                        $("#" + obj.attr("id") + "_g_play").css("visibility", "hidden")
-                        $("#" + obj.attr("id") + "_g_pause").css("visibility", "visible")
-                        //clearTimeout(t);
-                        f();
-                        audio.currentTime=0;
-                        audio.play();
-                    }
-}
+        function replay() {
+            if (isNaN(audio.duration)) {
+                audio.src = data.music[mindex].audio;
+            } else {
+                $("#g_play").css("visibility", "hidden")
+                $("#pause").css("visibility", "visible")
+                //clearTimeout(t);
+                f();
+                audio.currentTime = 0;
+                audio.play();
+            }
+        }
 
         function prevM() {
-            if (parseInt($("#music").attr("mindex")) >1) {
-               
+            if (parseInt($("#music").attr("mindex")) > 1) {
+
                 $("#music").attr("mindex", parseInt($("#music").attr("mindex")) - 1)
-                var mindex=parseInt($("#music").attr("mindex")) - 1
+                var mindex = parseInt($("#music").attr("mindex")) - 1
                 audio.src = data.music[mindex].audio;
                 $("#music_name").html(data.music[mindex].name);
                 $("#g_play").css("visibility", "hidden")
@@ -101,7 +101,7 @@ if (isNaN(audio.duration)) {
         function nextM() {
             if (parseInt($("#music").attr("mindex")) < data.music.length) {
                 $("#music").attr("mindex", parseInt($("#music").attr("mindex")) + 1)
-                var mindex=parseInt($("#music").attr("mindex")) - 1
+                var mindex = parseInt($("#music").attr("mindex")) - 1
                 audio.src = data.music[mindex].audio;
                 $("#music_name").html(data.music[mindex].name);
                 $("#g_play").css("visibility", "hidden")
@@ -165,11 +165,11 @@ if (isNaN(audio.duration)) {
 <body>
     <div style="background-color:#edeaea;width: 100%;height: 80px;display: grid;grid-template-columns: 80px auto;">
         <audio controls="controls" id="music" mindex="1" hidden="hidden"></audio>
-        <div style="background-color:steelblue;height: 100%;width: 80px;"><svg viewBox="0 0 80 80" fill="#fff">
-            <circle cx="23" cy="55" r="6" ></circle>
-            <path d="m23 55 q10 10 8 -30h20q5 20 -3 28" fill="none" stroke="#fff" stroke-width="4"></path>
-            <circle cx="45" cy="50" r="6" ></circle>
-        </svg></div>
+        <div style="background-color:gray;height: 100%;width: 80px;"><svg viewBox="0 0 80 80" fill="#fff">
+                <circle cx="23" cy="55" r="6"></circle>
+                <path d="m23 55 q10 10 8 -30h20q5 20 -3 28" fill="none" stroke="#fff" stroke-width="4"></path>
+                <circle cx="45" cy="50" r="6"></circle>
+            </svg></div>
         <div style="display: grid; grid-template-rows: auto 3px;background-color:gray;width: 100%;height: 100%;">
             <div
                 style="background-color: coral; display: grid; grid-template-columns: 40px 40px 40px 40px auto;grid-gap: 6px 6px; align-items: center;text-align: center;padding: 6px;">
