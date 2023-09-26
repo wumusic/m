@@ -32,15 +32,20 @@
                 $("#g_play").css("visibility", "hidden")
                 $("#g_pause").css("visibility", "visible")
                 f();
-                audio.play();
+                // audio.play();
             }
 
         }
         var t;
+        var strl = "LOADING"
+        var strtime = ""
+        var indexs = 0;
         function f() {
+
             t = setTimeout(function () {
                 var curtt = parseInt(audio.currentTime);
                 var fullt = parseInt(audio.duration);
+
                 if (curtt === fullt) {
                     $("#g_play").css("visibility", "visible")
                     $("#g_pause").css("visibility", "hidden")
@@ -50,7 +55,19 @@
                 }
                 $("#timeline").css("width", (curtt / fullt) * 100 + "%");
                 if (isNaN(audio.duration)) {
-                    $("#time_txt").html("--:--/--:--");
+
+                    if (indexs < strl.length) {
+                        strtime += strl.charAt(indexs);
+                        indexs += 1;
+                        console.log(indexs)
+
+                        $("#time_txt").html(strtime);
+                    } else {
+                        indexs = 0;
+                        strtime = "";
+                        $("#time_txt").html(strtime);
+                    }
+
                 } else {
                     var t1 = parseInt(curtt / 60) >= 10 ? parseInt(curtt / 60) + ":" + (parseInt(curtt % 60) >= 10 ? parseInt(curtt % 60) : "0" + parseInt(curtt % 60)) : "0" + parseInt(curtt / 60) + ":" + (parseInt(curtt % 60) >= 10 ? parseInt(curtt % 60) : "0" + parseInt(curtt % 60));
                     var t2 = parseInt(audio.duration / 60) >= 10 ? parseInt(audio.duration / 60) + ":" + (parseInt(audio.duration % 60) >= 10 ? parseInt(audio.duration % 60) : "0" + parseInt(audio.duration % 60)) : "0" + parseInt(audio.duration / 60) + ":" + (parseInt(audio.duration % 60) >= 10 ? parseInt(audio.duration % 60) : "0" + parseInt(audio.duration % 60))
