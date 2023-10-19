@@ -57,7 +57,7 @@
             $("#loading").css({ "height": $(window).innerHeight() + "px", "width": $(window).innerWidth() + "px" });
             var n = products.product.length
             for (i = 0; i < n; i++) {
-                $('<div class="item"><div class="img_box" style="background-image:url(\'products\/' + products.product[i].img + '\'");"><div class="discription" style="height:30px;width:100%;background:rgba(0, 148, 255, 0.90);flex-basis:50px;"><p>'+products.product[i].name+'</p></di</div></div>').appendTo($("#content"));
+                $('<div class="item"><div class="img_box" style="background-image:url(products.product[i].img + '\'");"><div class="discription" style="height:30px;width:100%;background:rgba(0, 148, 255, 0.90);flex-basis:50px;"><p>'+products.product[i].name+'</p></di</div></div>').appendTo($("#content"));
             }
         })
         $(window).load(function () {
