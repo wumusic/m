@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        var data = {
+            "top": [
+             {
+                 "id": "1",
+                 "img": "1.jpg",
+                 "discription": "绿水青山，就是金山银山"
+
+             },
+             {
+                 "id": "2",
+                 "img": "2.jpg",
+                 "discription": "生态美助推生活美"
+             },
+             {
+                 "id": "3",
+                 "img": "3.jpg",
+                 "discription": "绿色家园有我"
+             },
+             {
+                 "id": "3",
+                 "img": "4.jpg",
+                 "discription": "绿色家园有我"
+             }
+
+            ]
+        }
+        var timer;
+        var n = data.top.length;
+        var color_unselected = "rgba(0, 148, 255, 0.50)";
+        var color_selected = "rgba(255, 106, 0, 0.60)";
+        $(window).ready(function () {
+            var sh = 320, sw = 480;
+            $("#xxx").swiper(data, sh, sw);
+            var w = $(window).innerWidth();
+            var h = $(window).innerHeight();
+            var imgh;
+            var imgbl = 3 / 4
+            imgh = imgbl * w;
+            //if (imgbl * w <= h) {
+            //    imgh = imgbl * w;
+            //} else {
+            //    imgh = h;
+            //}
+
+            var sliderWidth = ($(window).innerWidth() > 80 * n ? $(window).innerWidth() / n - 60 : ($(window).innerWidth() - 20 * n) / n);        //Math.abs( $(window).innerWidth()/n-60);
+            var sliderHeight = 6;
+            var slider = $('<div style="position:relative;;bottom:0;width:100%;color:#fff;text-align:center;"></div>').appendTo($("#top"));
+
+            for (i = 0; i < n && i < 8; i++) {
+                if (i == 0) {
+                    $('<span swiperid="' + i + '" onclick="goto(this)" style="animation-name: a2;animation-duration:4s; display:inline-block;height:' + sliderHeight + 'px;width:' + sliderWidth + 'px;max-width:40px;border-radius:2px;margin:10px;background:' + color_selected + ';"></span>').appendTo(slider);
+                }
+                else {
+                    $('<span swiperid="' + i + '" onclick="goto(this)" style="animation-name: a2;animation-duration:4s; display:inline-block;height:' + sliderHeight + 'px;width:' + sliderWidth + 'px;max-width:40px;border-radius:2px;margin:10px;background:' + color_unselected + ';"></span>').appendTo(slider);
+
+                }
+            }
+
+            $("#u1").css({ "width": n * w + "px" });
+            for (i = 0; i < n; i++) {
+                //$('<li style="background-image:url(' + data.top[i].img + ');background-size:100% 100%;height:' + imgh + 'px"><img src="' + data.top[i].img + '" style="height:100%;width:100%;"><div style="position:absolute;bottom:20px;text-align:center;line-height:30px;width:100%;color:rgba(255 255 255 0.6);font-size:16px;"><h3 style="color:rgba(255, 255, 255, 0.8);"">' + data.top[i].discription + '</h3></div></li>').appendTo("#u1");
+                $('<li style="background-image:url(' + data.top[i].img + ');background-size:cover;height:' + imgh + 'px"><div style="position:absolute;bottom:20px;text-align:center;line-height:30px;width:100%;color:rgba(255 255 255 0.6);font-size:16px;"><h3 style="color:rgba(255, 255, 255, 0.8);"">' + data.top[i].discription + '</h3></div></li>').appendTo("#u1");
+
+            }
+            $("#topimg ul li").css({ "width": w + "px" });
+            //alert(w);
+
+            var t = 6000;
+            var u1 = $("#u1").children().clone(true);
+            $("#u2").append(u1);
+            $("#u2").css("width", n * w + "px");
+            var left = 0;
+            var scroll = function () {
+                left = parseInt($("#topimg").css(("left")));
+                left -= w;
+                var j = Math.abs(left) / w;
+                if (left < -n * w) {
+                    $("#topimg").css("left", "0");
+                    left = 0;
+                    timer = setTimeout(scroll, 0);
+                } else {
+                    $("#topimg").animate({ "left": left }, 500)
+                    if (j < n) {
+                        slider.children().eq(j - 1).css("background", color_unselected);
+                        slider.children().eq(j).css("background", color_selected);
+                    } else {
+                        slider.children().eq(j - 1).css("background", color_unselected);
+                        slider.children().eq(0).css("background", color_selected);
+                    }
+                    timer = setTimeout(scroll, t);
+                }
+
+            }
+            //scroll();
+            setTimeout(scroll, t);
+            $("#topimg").hover(function () {
+                clearTimeout(timer);
+            }, function () {
+                timer = setTimeout(scroll, t);
+            })
+
+
+        })
+        $.fn.swiper = function (data, swiperH, swiperW) {
+            var newSwiper = function (obj) {
+                var viewBox = $('<div style="position:relative;top:0;right:0; height:' + swiperH + 'px;width:' + swiperW + 'px;background:#ff6a00;overflow:hidden;"></div>').appendTo(obj);
+                var picBOX = $('<div id="' + obj.attr("id") + '_picBox" style="position:absolute;height:100%; width:10000px;background:#4cff00;display:flex;flex-direction:row;"></div>').appendTo(viewBox);
+                var ps = $('<ul style="display:flex;flex-direction:row;height:100%;padding:0;margin:0;"></ul>').appendTo(picBOX)
+                var n = data.top.length;
+                for (i = 0; i < n; i++) {
+                    $('<li style="background-image:url(' + data.top[i].img + ');background-size:cover;height:' + swiperH + 'px;width:' + swiperW + 'px"><div style="position:absolute;bottom:20px;text-align:center;line-height:30px;width:' + swiperW + 'px;color:rgba(255 255 255 0.6);font-size:16px;"><h3 style="color:rgba(255, 255, 255, 0.8);">' + data.top[i].discription + '</h3></div></li>').appendTo(ps);
+                }
+                ps.clone().appendTo(picBOX);
+                var color_unselected = "rgba(0, 148, 255, 0.50)";
+                var color_selected = "rgba(255, 106, 0, 0.60)";
+                var pointH = 6, pointW = 30;
+                var point = $('<div id="' + obj.attr("id") + '_point" style="position:absolute;;bottom:0;width:100%;color:#fff;text-align:center;"></div>').appendTo(viewBox);
+
+                for (i = 0; i < n && i < 8; i++) {
+                    if (i == 0) {
+                        $('<span swiper="' + obj.attr("id") + '" pointid="' + i + '"  style=" display:inline-block;height:' + pointH + 'px;width:' + pointW + 'px;max-width:40px;border-radius:2px;margin:10px;background:' + color_selected + ';"></span>').appendTo(point).click(function () {
+                            var w = $(this).parent().width();
+                            var index = parseInt($(this).attr("pointid"));
+                            var s = $(this).attr("swiper");
+                            $("#" + s + "_picBox").animate({ "left": -index * w }, 500);
+                            $(this).parent().children().css("background", color_unselected);
+                            $(this).css("background", color_selected);
+                        });
+                    }
+                    else {
+                        $('<span swiper="' + obj.attr("id") + '" pointid="' + i + '"  style=" display:inline-block;height:' + pointH + 'px;width:' + pointW + 'px;max-width:40px;border-radius:2px;margin:10px;background:' + color_unselected + ';"></span>').appendTo(point).click(function () {
+                            var w = $(this).parent().width();
+                            var index = parseInt($(this).attr("pointid"));
+                            var s = $(this).attr("swiper");
+                            $("#" + s + "_picBox").animate({ "left": -index * w }, 500);
+                            $(this).parent().children().css("background", color_unselected);
+                            $(this).css("background", color_selected);
+                        });;
+
+                    }
+                }
+
+
+            }
+            return $(this).each(function () {
+                newSwiper($(this));
+                var left = 0;
+                var t = 6000;
+                var el = "#" + $(this).attr("id");
+                var scroll = function () {
+                    left = parseInt($(el + "_picBox").css(("left")));
+                    left -= swiperW;
+                    var j = Math.abs(left) / swiperW;
+                    if (left < -n * swiperW) {
+                        $(el + "_picBox").css("left", "0");
+                        left = 0;
+                        timer = setTimeout(scroll, 0);
+                    } else {
+                        $(el + "_picBox").animate({ "left": left }, 500)
+                        if (j < n) {
+                            $(el + "_point").children().css("background", color_unselected);
+                            //$(el + "_point").children().eq(j - 1).css("background", color_unselected);
+                            $(el + "_point").children().eq(j).css("background", color_selected);
+                        } else {
+                            $(el + "_point").children().css("background", color_unselected);
+                            //$(el + "_point").children().eq(j - 1).css("background", color_unselected);
+                            $(el + "_point").children().eq(0).css("background", color_selected);
+                        }
+                        timer = setTimeout(scroll, t);
+                    }
+
+                }
+                //scroll();
+                setTimeout(scroll, t);
+            });
+        }
+
+        //const lbox = document.querySelectorAll(".lbox");
+        function change(e) {
+           
+            //lbox.forEach(element=> {
+            //    //alert(element);
+            //    if ($(element).attr("select") == "1") {
+                   
+            //        $(element).animate({ "top": "100%" }).attr("select", "0");
+            //    }
+            //});
+           
+            $(".lbox").each(function () {
+                if ($(this).attr("select") == "1") {
+                    $(this).animate({ "top": "100%", "opacity": "0" }, 500).attr("select","0");
+                }
+            })
+            $("#" + $(e).attr("cid")).animate({ "top": "0", "opacity": "1" }, 600).attr("select", "1");
+           //animate({ "top": "0" }).attr("select", "1");
+        }
+
+    </script>
+    <style>
+        html, body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            overflow-x: hidden;
+        }
+
+  
+    </style>
+</head>
+<body>
+    <!--<div style="display:grid;grid-template:480px/640px 1fr;">
+        <div style="position:relative;top:0;right:0; height:480px;width:640px;background:#ff6a00;overflow:hidden;">
+            <div style="position:absolute;height:100%; width:10000px;background:#4cff00;">
+                <ul style="display:flex;flex-direction:row;height:100%;padding:0;margin:0;">
+                    <li style="width:240px;"><img style=" height:100%;width:100%;" src="1.jpg" /></li>
+                    <li style="width:240px;"><img style=" height:100%;width:100%;" src="1.jpg" /></li>
+                    <li style="width:240px;"><img style=" height:100%;width:100%;" src="1.jpg" /></li>
+                    <li style="width:240px;"><img style=" height:100%;width:100%;" src="1.jpg" /></li>
+                </ul>
+
+            </div>
+        </div>
+        <div style="position:relative;width:100%;background:#ff6a00;">
+
+        </div>
+        <div id="xxx" style="position:absolute;top:2px;"></div>
+    </div>-->
+
+
+    <div style="position:relative;top:0;left:0;">
+        <div style="position:absolute;width:480px;height:60px;background:#ff0000;z-index:1;">
+            <ul style="position:absolute;width:100%;height:100%;padding:0;margin:0;overflow:hidden;display:grid;grid-template:100%/1fr 1fr 1fr;">
+                <li style="position:relative;height:100%;background:#808080;display:block;" onclick="change(this);" cid="l1"></li>
+                <li style="position:relative;height:100%;background:#ff6a00;display:block;" onclick="change(this);" cid="l2"></li>
+                <li style="position:relative;height:100%;background:#0094ff;display:block;" onclick="change(this);" cid="l3"></li>
+            </ul>
+        </div>
+        <div style="position:absolute;width:480px;height:360px;background:#ff0000">
+            <ul style="position:absolute;width:100%;height:100%;padding:0;margin:0;overflow:hidden;">
+                <li class="lbox down up"select="1" id="l1" style="position:absolute;height:100%;width:100%;background:#808080;display:block;top:0;opacity:1"></li>
+                <li class="lbox down up" select="0" id="l2" style="position:absolute;height:100%;width:100%;background:#ff6a00;display:block;top:100%;opacity:0"></li>
+                <li class="lbox down up"select="0" id="l3" style="position:absolute;height:100%;width:100%;background:#0094ff;display:block;top:100%;opacity:0"></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+</html>
