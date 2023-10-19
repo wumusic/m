@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script src="jquery-1.9.1.min.js"></script>
+    <script src="https://pnlh.oss-cn-shanghai.aliyuncs.com/pnlh/jquery-1.9.1.min.js"></script>
     <script>
         $(window).ready(function () {
             $("#WX").click(function () {
@@ -25,7 +25,7 @@
         function malert(msg, callback) {
             var alertdiv = $('<div class="alertdiv" style=" position:fixed;width: 100%;height:100%;top:0;left:0; z-index: 9999;"></div>').appendTo($("body"));
             var alertbox = $('<div class="alert" style=" position: fixed;width: 240px;height: 240px;margin: auto auto;left: 0;right: 0;top: 30%; background:rgba(128, 128, 128, 0.60);color:#fff;word-wrap:break-word;border: 1px solid rgba(128, 128, 128, 0.60);border-radius:2px;box-shadow: 0 0 10px #808080;z-index: 10000;"></div>').appendTo(alertdiv);
-            var msgbox = $('<div style=" position:absolute;width: 200px;height: 200px;margin: auto auto;left: 0;right: 0;top:20px; background:url(wxQR.png);background-size:100% 100%; z-index: 10000;"></div>').appendTo(alertbox);
+            var msgbox = $('<div style=" position:absolute;width: 200px;height: 200px;margin: auto auto;left: 0;right: 0;top:20px; background:url(https://pnlh.oss-cn-shanghai.aliyuncs.com/pnlh/wxQR.png);background-size:100% 100%; z-index: 10000;"></div>').appendTo(alertbox);
             var okbtn = $('<div style="position:absolute;width:40px;height:40px;top:-20px;right:-20px;background:#0094ff;border-radius:50%;"><div style="position:absolute;width:40px;height:40px;left:0;right:0; margin: auto auto;left: 0;line-height:38px;font-size:32px;text-align:center;">×</div></div>').appendTo(alertbox);
             alertdiv.click(function (event) {
                 event.stopPropagation();
@@ -65,7 +65,7 @@
             padding: 0;
             margin: 0;
             border: 0;
-            background: url("back.jpg");
+            background: url("https://pnlh.oss-cn-shanghai.aliyuncs.com/pnlh/back.jpg");
             background-size: cover;
         }
 
@@ -82,7 +82,7 @@
             }
 
         li {
-            list-style: url('tele.svg');
+            list-style: url('https://pnlh.oss-cn-shanghai.aliyuncs.com/pnlh/tele.svg');
             line-height: 40px;
             letter-spacing: 1px;
         }
