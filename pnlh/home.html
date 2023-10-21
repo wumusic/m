@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title></title>
+    <script src="jquery-1.9.1.min.js"></script>
+    <script>
+        var data = {
+            "top": [
+             {
+                 "id": "1",
+                 "img": "1.jpg",
+                 "discription": "绿水青山，就是金山银山"
+
+             },
+             {
+                 "id": "2",
+                 "img": "2.jpg",
+                 "discription": "生态美助推生活美"
+             },
+             {
+                 "id": "3",
+                 "img": "3.jpg",
+                 "discription": "绿色家园有我"
+             },
+             {
+                 "id": "4",
+                 "img": "4.jpg",
+                 "discription": "绿化工程找潘农绿化"
+             }
+
+            ]
+        }
+        $(window).ready(function () {
+            var w = $(window).innerWidth();
+            var scale = 0.65;
+            var imgh = scale * w;
+            if (w > 900) {
+                //w=0.6*w;
+                //$("#top").css({ "width": w + "px", "height": 3 * w / 4 + "px" });
+                $("#maim").addClass("main");
+                $("#top").css({ "margin": "25px", "height": scale * $("#top").width() + "px" });
+            } else {
+                $("#top").css({ "width": w + "px", "height": scale * w + "px" });
+                $("#maim").removeClass("main");
+                $("#top").css({ "margin": "0" });
+            }
+            $("#k").css("height", imgh+60 + "px");
+            $("#s1").css({ "width": 3 * w / 4 + "px" })
+            $("ul").css({ "height": imgh + "px" });
+            $("#s1").css({ "width": imgh + "px" })
+            $(".box").css({ "width": (w - imgh) / 2 + "px" })
+            $("#top").swiper(data, $("#top").height(), $("#top").width());
+
+
+            if ($("#item3").width() / ($("#item3").height() > 2)) {
+                $("#grid-container").removeClass("grid-container").addClass("grid-container1");
+            } else {
+
+            }
+            if ($("#item3").height() / $("#item3").width() > 2) {
+                $("#grid-container").removeClass("grid-container1").addClass("grid-container");
+            } else {
+            }
+
+
+            $("body").scroll(function () {
+                var h = $(window).innerHeight();
+                if ($("#mc").offset().top < h + $("#mc").height()) {
+                    //$("#mc").animate({ "left": "60px", "font-size": "30px" }, 3000);
+                    $("#mc").css({ "animation-name": "a1", "animation-duration": "4s" });
+                } else {
+                    $("#mc").css({ "animation-name": "a2", "animation-duration": "4s" });
+                    //alert("111");
+                }
+                // if($("#mc").offset().top )
+            })
+        })
+
+        $.fn.swiper = function (data, swiperH, swiperW) {
+            var n = data.top.length;
+            var color_unselected = "rgba(0, 148, 255, 0.50)";
+            var color_selected = "rgba(255, 106, 0, 0.60)";
+            var pointH = 6, pointW = 30;
+            var newSwiper = function (obj) {
+                var viewBox = $('<div style="position:relative;top:0;right:0; height:' + swiperH + 'px;width:' + swiperW + 'px;overflow:hidden;"></div>').appendTo(obj);
+                var picBOX = $('<div id="' + obj.attr("id") + '_picBox" style="position:absolute;height:100%; width:100000px;display:flex;flex-direction:row;"></div>').appendTo(viewBox);
+                var ps = $('<ul style="display:flex;flex-direction:row;height:100%;width:' + n * swiperW + 'px;padding:0;margin:0;"></ul>').appendTo(picBOX)
+
+                for (i = 0; i < n; i++) {
+                    $('<li style="background-image:url(' + data.top[i].img + ');background-size:cover;height:' + swiperH + 'px;width:' + swiperW + 'px"><div style="position:absolute;bottom:40px;text-align:center;line-height:30px;width:' + swiperW + 'px;color:rgba(255 255 255 0.6);font-size:16px;"><h2 style="color:rgba(255, 255, 255, 0.8);">' + data.top[i].discription + '</h2></div></li>').appendTo(ps);
+                }
+                ps.clone().appendTo(picBOX);
+
+                var point = $('<div id="' + obj.attr("id") + '_point" style="position:absolute;;bottom:20px;width:100%;color:#fff;text-align:center;"></div>').appendTo(viewBox);
+
+                for (i = 0; i < n && i < 8; i++) {
+                    if (i == 0) {
+                        $('<span swiper="' + obj.attr("id") + '" pointid="' + i + '"  style=" display:inline-block;height:' + pointH + 'px;width:' + pointW + 'px;max-width:40px;border-radius:2px;margin:10px;background:' + color_selected + ';"></span>').appendTo(point).click(function () {
+                            var w = $(this).parent().width();
+                            var index = parseInt($(this).attr("pointid"));
+                            var s = $(this).attr("swiper");
+                            $("#" + s + "_picBox").animate({ "left": -index * w }, 500);
+                            $(this).parent().children().css("background", color_unselected);
+                            $(this).css("background", color_selected);
+                        });
+                    }
+                    else {
+                        $('<span swiper="' + obj.attr("id") + '" pointid="' + i + '"  style=" display:inline-block;height:' + pointH + 'px;width:' + pointW + 'px;max-width:40px;border-radius:2px;margin:10px;background:' + color_unselected + ';"></span>').appendTo(point).click(function () {
+                            var w = $(this).parent().width();
+                            var index = parseInt($(this).attr("pointid"));
+                            var s = $(this).attr("swiper");
+                            $("#" + s + "_picBox").animate({ "left": -index * w }, 500);
+                            $(this).parent().children().css("background", color_unselected);
+                            $(this).css("background", color_selected);
+                        });;
+
+                    }
+                }
+
+
+            }
+            return $(this).each(function () {
+                newSwiper($(this));
+                var left = 0;
+                var t = 6000;
+                var el = "#" + $(this).attr("id");
+                var scroll = function () {
+                    left = parseInt($(el + "_picBox").css(("left")));
+                    left -= swiperW;
+                    var j = Math.abs(left) / swiperW;
+                    if (left < -n * swiperW) {
+                        $(el + "_picBox").css("left", "0");
+                        left = 0;
+                        timer = setTimeout(scroll, 0);
+                    } else {
+                        $(el + "_picBox").animate({ "left": left }, 500)
+                        if (j < n) {
+                            $(el + "_point").children().css("background", color_unselected);
+                            $(el + "_point").children().eq(j).css("background", color_selected);
+                        } else {
+                            $(el + "_point").children().css("background", color_unselected);
+                            $(el + "_point").children().eq(0).css("background", color_selected);
+                        }
+                        timer = setTimeout(scroll, t);
+                    }
+
+                }
+                setTimeout(scroll, t);
+            });
+        }
+
+        $(window).load(function () {
+            $("#loading").hide();
+        })
+
+        function change(e) {
+
+            $(e).parent().children().css("background", "#0094ff");
+            $(e).css("background", "#ff6a00");
+            $(".lbox").each(function () {
+                if ($(this).attr("select") == "1") {
+                    $(this).animate({ "top": "100%", "opacity": "0" }, 500).attr("select", "0");
+                }
+            })
+            $("#" + $(e).attr("cid")).animate({ "top": "0", "opacity": "1" }, 600).attr("select", "1");
+        }
+    </script>
+    <style>
+        html, body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            border: 0;
+            overflow-x: hidden;
+        }
+
+        ul {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            /*height: 180px;*/
+            padding: 0;
+            margin: 0;
+        }
+
+            ul li {
+                /*position: relative;*/
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                height: 100%;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+        .selecter {
+            position: relative;
+            display: inline-block;
+            width: 33.3333%;
+        }
+
+            .selecter span {
+                display: block;
+                padding: 5px;
+                background: #0094ff;
+                color: #fff;
+            }
+
+        .content {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            height: 100%;
+        }
+
+        .box {
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+
+
+        .item {
+            height: 90%;
+            min-width: 120px;
+            min-height: 160px border-radius: 6px;
+            transform: scale(0.95);
+            /*background: rgba(238, 238, 238, 0.6);*/
+        }
+
+        .item1 {
+            grid-area: area1;
+        }
+
+        .item2 {
+            grid-area: area2;
+        }
+
+        .item3 {
+            grid-area: area3;
+        }
+
+        .item4 {
+            grid-area: area4;
+        }
+
+        .item5 {
+            grid-area: area5;
+        }
+
+        .grid-container {
+            position: relative;
+            top: 0;
+            left: 0;
+            display: grid;
+            grid-template: 'area1  area2 area3 ' 'area4 area5 area3';
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: .4rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .grid-container1 {
+            position: relative;
+            top: 0;
+            left: 0;
+            display: grid;
+            grid-template: 'area1  area2 area4 area5 area3';
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: .4rem;
+            align-items: center;
+        }
+
+        #foot {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        @keyframes a1 {
+            from {
+                font-size: 20px;
+            }
+
+            to {
+                font-size: 40px;
+            }
+        }
+
+        @keyframes a2 {
+            from {
+                font-size: 40px;
+            }
+
+            to {
+                font-size: 20px;
+            }
+        }
+
+        .main {
+            display: grid;
+            grid-template: 'top  top grid-container ' 'content content content' 'foot foot foot';
+            grid-template-columns: 1fr 1fr 1.5fr;
+            /*grid-gap: .4rem;*/
+            transform:scale(0.9);
+            transform-origin:center 0;
+            overflow: hidden;
+        }
+
+        #top {
+            grid-area: top;
+        }
+
+        #content {
+            grid-area: content;
+        }
+
+        #grid-container {
+            grid-area: grid-container;
+        }
+
+        #foot {
+            grid-area: foot;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" style=" position:fixed;top:0; height:100%;width:100%;background:#fff;z-index:999;display:flex;align-content:center"><img style="height:240px;width:240px;margin:auto auto; z-index:999" src="loading.gif" /></div>
+    <div id="maim">
+        <div id="top" style="position:relative;">
+
+        </div>
+        <div id="content" style="position:relative;left:0;top:0;display:flex;flex-direction:column;align-items:center; width:100%; margin:10px auto;text-align:center;color:#0094ff">
+
+            <h1 style="height:45px;">潘农优势</h1>
+            <h3 style="color:#000;height:25px;">透明价格 全程绿化管理</h3>
+            <div id="k" style="position:relative;top:0;left:0;width:100%;">
+                <div style="position:absolute;width:100%;height:60px;background:#ff0000;z-index:1;">
+                    <ul style="position:absolute;width:100%;height:100%;color:#fff;line-height:60px;text-align:center; padding:0;margin:0;overflow:hidden;display:grid;grid-template:60px/1fr 1fr 1fr;">
+                        <li style="position:relative;height:100%;background:#ff6a00;display:block;" onclick="change(this);" cid="l1">基地直供</li>
+                        <li style="position:relative;height:100%;background:#0094ff;display:block;" onclick="change(this);" cid="l2">专业团队</li>
+                        <li style="position:relative;height:100%;background:#0094ff;display:block;" onclick="change(this);" cid="l3">精品服务</li>
+                    </ul>
+                </div>
+                <div style="position:absolute;width:100%;height:100%;top:60px;">
+                    <ul style="position:absolute;width:100%;height:100%;left:0; padding:0;margin:0;overflow:hidden;">
+                        <li class="lbox" select="1" id="l1" style="position:absolute;background-image:url('y1.jpg');background-size:100% 100%;height:100%;width:100%;display:block;top:0;opacity:1">
+                            <div class="content">
+                                <div class="box"></div>
+                                <div>
+                                    <svg id="s1" style="height:100%;" viewBox="0 0 400 400" style="position:absolute;top:0;left:0;">
+                                        <defs>
+                                            <mask id="m1">
+                                                <rect x="0" y="0" style="width:100%;height:100%;" fill="rgba(255,255,255,1)" mask="url(#m1)"></rect>
+
+                                                <path id="svg_4" fill="#000" d="m161.837,302.4665c-0.476,2.356 -0.555,4.752 -1.489,6.747c-0.773,1.65 -2.38,3.713 -3.93,4.02c-2.801,0.556 -4.444,1.311 -5.04,4.354c-0.649,3.316 -6.108,5.352 -8.77,3.372c-2.87,-2.133 -5.5,-4.586 -8.283,-6.841c-0.453,-0.367 -1.347,-0.785 -1.703,-0.585c-4.408,2.477 -7.059,-0.652 -8.734,-2.12c-3.848,0 -6.427,-0.136 -8.987,0.031c-4.279,0.281 -8.611,0.424 -12.798,1.245c-4.284,0.84 -8.709,1.856 -12.559,3.81c-6.684,3.389 -12.005,0.162 -16.442,-3.526c-2.113,-1.756 -3.032,-6.935 -2.166,-9.876c1.816,-6.162 -4.022,-6.374 -5.969,-9.467c-1.063,-1.689 -2.709,-3.024 -4.148,-4.462c-1.83,-1.827 -2.108,-3.146 -0.66,-5.901c1.76,-3.343 -2.009,-4.397 -4.509,-5.989c-4.285,-2.728 -8.561,-5.752 -12.007,-9.434c-3.121,-3.334 -1.312,-6.935 3.092,-8.479c4.673,-1.64 9.214,-3.655 13.81,-5.515c0.457,-0.186 1.268,-0.406 1.28,-0.645c0.387,-7.251 5.944,-4.07 9.555,-4.773c5.42,-1.054 11.275,-1.168 16.129,-3.432c3.936,-1.835 7.236,-5.859 9.79,-9.613c2.997,-4.406 6.132,-7.378 11.775,-7.012c2.813,0.184 4.062,-1.089 4.588,-4.329c0.66,-4.072 2.579,-7.929 7.768,-8.672c6.751,-0.968 13.42,-2.515 20.177,-3.431c3.942,-0.535 5.404,-2.272 4.932,-6.165c-0.127,-1.05 0.774,-2.226 2.019,-3.004c0.935,-3.377 1.911,-6.743 2.774,-10.138c0.196,-0.772 0.344,-1.948 -0.072,-2.422c-2.737,-3.117 -2.188,-5.801 1.175,-7.701c3.351,-1.894 7.099,-4.756 9.301,0.617c3.734,-2.158 7.138,-3.916 10.276,-6.063c0.969,-0.663 1.214,-2.384 0.271,-2.863c-2.284,-2.429 -4.562,-4.863 -6.855,-7.282c-0.496,-0.523 -1.263,-0.9 -1.528,-1.509c-0.574,-1.319 -1.627,-3.668 -1.223,-3.986c5.104,-4.001 3.593,-10.52 6.184,-15.357c1.193,-2.228 3.175,-4.21 5.205,-5.779c4.517,-3.493 9.286,-6.66 13.958,-9.95c1.33,-0.938 2.681,-1.844 4.229,-2.907c0.605,-6.638 2.256,-12.719 8.615,-17.41c3.019,-2.227 3.755,-7.52 5.584,-11.396c1.606,-3.404 3.284,-6.775 4.97,-10.141c0.117,-0.231 0.611,-0.243 0.859,-0.445c9.409,-7.673 9.407,-7.674 14.919,3.242c4.922,-5.072 5.575,-4.92 10.99,0.221c1.729,1.643 3.67,4.11 7.046,1.35c1.071,-0.876 4.562,0.506 6.523,1.606c2.175,1.221 3.694,3.564 5.805,4.956c5.133,3.383 8.115,2.614 12.994,-1.402c3.588,-2.954 7.68,-5.548 11.954,-7.324c2.821,-1.17 5.913,0.094 7.875,3.211c1.853,2.944 4.246,5.542 6.304,8.364c2.206,3.026 4.471,5.605 5.226,9.923c0.625,3.58 2.227,7.205 2.794,11.151c0.559,3.885 8.018,7.957 12.428,8.15c2.431,0.106 5.121,0.123 7.167,1.19c1.491,0.777 2.492,3.095 3.049,4.926c0.913,3.006 0.527,6.292 4.88,7.488c1.5,0.412 2.146,3.924 3.269,6.194c0.44,-0.464 0.966,-1.237 1.683,-1.735c6.19,-4.298 8.383,-3.993 14.537,1.664c1.354,1.244 2.906,2.33 4.512,3.23c4.184,2.346 4.357,9.739 1.623,13.576c-1.739,2.439 -1.076,6.59 -1.444,9.594c-3.004,0.563 -6.455,1.209 -10.748,2.014c0.923,3.152 1.795,5.531 2.267,7.987c0.25,1.306 0.188,2.937 -0.394,4.088c-2.276,4.512 -5.263,8.718 -7.07,13.392c-0.909,2.353 -0.533,5.744 0.468,8.167c1.643,3.977 -0.933,12.471 -4.805,14.384c-1.94,0.958 -3.842,2.399 -5.189,4.081c-4.402,5.489 -6.599,5.385 -9.794,-0.745c-2.541,0 -5.035,-0.127 -7.509,0.047c-1.485,0.105 -9.274,9.306 -9.079,10.79c0.134,1.018 1.413,1.884 1.551,2.903c0.318,2.368 1.092,5.208 0.146,7.085c-1.331,2.646 -4.49,3.653 -7.519,2.535c-2.565,-0.947 -4.935,-2.426 -7.126,-2.447c-4.808,0.849 -9.59,2.071 -14.433,2.401c-2.817,0.191 -4.118,1.115 -4.905,3.597c-0.43,1.355 -1.439,2.529 -1.857,3.888c-2.225,7.231 -8.453,7.283 -14.157,7.443c-1.971,0.056 -4.411,-1.926 -5.92,-3.616c-2.138,-2.395 -3.449,-5.504 -5.407,-8.086c-2.521,-3.323 -3.99,-6.149 -1.144,-10.442c0.999,-1.506 -0.838,-5.451 -2.195,-7.813c-1.509,-2.626 -3.726,-2.132 -6.308,-0.419c-3.125,2.073 -10.514,0.458 -13.173,-2.298c-1.269,-1.314 -2.341,-2.818 -3.258,-3.938c-4.534,2.029 -8.333,3.73 -11.439,5.121c-0.345,3.524 0.197,7.097 -1.14,9.706c-2.539,4.952 -0.898,8.901 0.95,13.344c1.513,3.633 2.558,7.568 3.093,11.468c0.414,3.025 -1.858,4.292 -4.83,4.193c-3.098,-0.102 -4.417,0.588 -3.488,4.414c0.897,3.697 -0.297,7.366 -4.877,8.695c-3.234,0.938 -6.566,1.839 -9.5,3.416c-2.322,1.247 -4.706,3.146 -5.999,5.374c-2.56,4.413 -5.855,5.173 -10.504,4.233c-2.926,-0.594 -6.066,-0.113 -9.286,-0.113z" />
+                                                <text x="50" y="100" style="font-size:30px;font-weight:800" fill="black">建德</text>
+                                                <text id="mc" x="0" y="160" style="font-size:40px;font-weight:900;" fill="black">潘农绿化</text>
+                                            </mask>
+                                        </defs>
+                                        <rect id="rec" x="0" y="0" style="width:100%;height:100%;" fill="rgba(255,255,255,0.6)" mask="url(#m1)"></rect>
+
+                                    </svg>
+                                </div>
+                                <div class="box"></div>
+                            </div>
+                        </li>
+                        <li class="lbox" select="0" id="l2" style="position:absolute;height:100%;width:100%;background-image:url('y2.jpg');background-size:100% 100%;display:block;top:100%;opacity:0"></li>
+                        <li class="lbox" select="0" id="l3" style="position:absolute;height:100%;width:100%;background-image:url('y3.jpg');background-size:100% 100%;display:block;top:100%;opacity:0"></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div id="grid-container" class="grid-container">
+            <div class="item1 item">
+                <a style="box-sizing:border-box;text-align:center;">
+                    <div style="padding:.4rem;">
+                        <img src="work/w1.jpg" style="width:100%;" />
+                    </div>
+                </a>
+            </div>
+            <div class="item2 item">
+                <a style=" box-sizing:border-box;text-align:center;">
+                    <div style="padding:.4rem;">
+                        <img src="work/w2.jpg" style="width:100%;" />
+                    </div>
+                </a>
+            </div>
+            <div id="item3" class="item3">
+                <div style="text-align:left;padding:10px;display:flex;text-align: center;color: #0094ff;">
+                    <div style="text-align:left;padding:10px;">
+                        <h3>全方位技术支持</h3>
+                        <p>
+                            自有多个设计和施工养护团队，多年绿化项目施工管理维护经验。
+                            <!--<strong>可为客户提供设计方案的应用延展服务，呈现工程与自然的和谐之美。</strong>-->
+                        </p>
+                        <a href="/contact.html" style="text-decoration: none;color:#ff6a00"><strong>联系我们</strong></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item4 item">
+                <a style=" box-sizing:border-box;text-align:center;">
+                    <div style="padding:.4rem;">
+                        <img src="work/w3.jpg" style="width:100%;" />
+                    </div>
+                </a>
+            </div>
+            <div class="item5 item">
+                <a style=" box-sizing:border-box;text-align:center;">
+                    <div style="padding:.4rem;">
+                        <img src="work/w4.jpg" style="width:100%;" />
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <div id="foot">
+            <div style="padding:10px;text-align:center;color:#0094ff">
+                <hr style="border:1px solid #0094ff;" />
+                <h4>建德潘农绿化有限公司 版权所有</h4>
+                <!--<h4>备案号：浙ICP备202388888号-1</h4>-->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
