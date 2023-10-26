@@ -27,7 +27,7 @@ var data = {
         {
 
             "id": "5",
-            "audio": "https://el-sycdn.kuwo.cn/4d305153539e7ae573e2d45eeb82eb39/653912d9/resource/n1/8/8/3143957379.mp3",
+            "audio": "https://m801.music.126.net/20231026112210/bb79f7a8e2555d2ffd14296e740e584d/jdyyaac/075b/5209/0e58/01c89bf773ec0b5df98192cdcf5b92ca.m4a",
             "name": "叛变神曲"
         }
     ]
