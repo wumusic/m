@@ -64,6 +64,7 @@
                     }
                 });
                 var nextBtn = $('<div><svg viewBox="0 0 40 40" stroke="#fff" fill="#fff"><circle cx="20" cy="20" r="15" stroke-width="3" fill="none"></circle><polygon points="14,10, 14,30 22,20 22,30 30,20 22,10 22,20"></polygon></svg></div>').appendTo($(controlBtns)).on("click", function () {
+                     try {
                     if (parseInt($("#" + obj.attr("id") + "_music").attr("mindex")) < data.music.length) {
                         $("#" + obj.attr("id") + "_music").attr("mindex", parseInt($("#" + obj.attr("id") + "_music").attr("mindex")) + 1)
                         var mindex = parseInt($("#" + obj.attr("id") + "_music").attr("mindex")) - 1
@@ -76,7 +77,10 @@
                         audio.play();
                     }else{
                         alert("没有下一首啦")
-                    }
+                    }  
+                } catch (error) {
+                    alert(error);
+                }   
                 })
                 var info = $('<div style="color: #fff;"><div id="' + obj.attr("id") + '_music_name">music name</div><div id="' + obj.attr("id") + '_time_txt"> 00:00/00:00</div></div>').appendTo($(controlBtns));
                 var timeline = $('<div id="' + obj.attr("id") + '_timebox" style="background-color:gray;width:100%;"><div id="' + obj.attr("id") + '_timeline" style="background-color:cornflowerblue;width:0;height: 100%;"></div></div>').appendTo(controlBox).on("click", function () {
