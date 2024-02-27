@@ -22,12 +22,6 @@ var data = {
             "id": "4",
             "audio": "4.mp3",
             "name": "下雨的时候大家都在干嘛"
-        },{
-            "id": "5",
-            "audio": "https://lv-sycdn.kuwo.cn/de9403a5c87de655497756dfb191ce41/65dd4473/resource/30106/trackmedia/M500002dvwX11IuISK.mp3",
-            "name": "hhh"
-            
         }
-       
     ]
 }
