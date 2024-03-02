@@ -28,6 +28,10 @@
                 musicselecter.type = "file";
                 musicselecter.addEventListener("change", () => {
                     var file = musicselecter.files[0];
+                     if (!/audio\/\w+/.test(file.type)) {
+                        alert("文件格式不正确", null, () => { $("#uploadtx").val(""); });
+                        return false;
+                    }
                     var url = URL.createObjectURL(file)
                     data.music.push({
                         "id": "n",
