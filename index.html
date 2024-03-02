@@ -6,34 +6,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+    </style>
     <script src="jquery-1.9.1.min.js"></script>
     <script src="mlist.js"></script>
     <script src="musicplayer.js"></script>
     <script>
-        $(window).ready(function(){
-             $("#localmusic").on("click",function(){
-                 var musicselecter= document.createElement("input");
-                 musicselecter.type="file";
-                 musicselecter.addEventListener("change",()=>{
-                     var file=musicselecter.files[0];
-                     var url=URL.createObjectURL(file)
-                     data.music.push({
-                         "id": "n",
-                         "audio": url,
-                         "name": file.name
-                     });
-                 })
-             });
+        $(window).ready(function() {
+            updateList();
+            $("#localmusic").on("click", function() {
+                //alert("111")
+                var musicselecter = document.createElement("input");
+                musicselecter.type = "file";
+                musicselecter.addEventListener("change", () => {
+                    var file = musicselecter.files[0];
+                    var url = URL.createObjectURL(file)
+                    data.music.push({
+                        "id": "n",
+                        "audio": url,
+                        "name": file.name
+                    });
+                    updateList();
+                })
+                $(musicselecter).click();
+            });
         })
-       
+
+        function updateList() {
+            $("#list").empty();
+            data.music.map((song, index) => {
+                var listItem = $('<div src="' + song.audio + '" onclick="doplay(this)" mindex="' + (index + 1) + '" style="margin:12px;height:25px;overflow:hidden;" >' + song.name + '</div>').appendTo($("#list"));
+            })
+        }
+
+        function doplay(el) {
+            $("#mymusic_music").attr("src", $(el).attr("src"));
+            $("#mymusic_music").attr("mindex", $(el).attr("mindex"))
+            audio = $("#mymusic_music")[0];
+            $("#mymusic").get(0).style.setProperty("--play", "hidden")
+            $("#mymusic").get(0).style.setProperty("--pause", "visible")
+            $("#mymusic_music_name").html($(el).html())
+            audio.play();
+            f($("#mymusic"));
+        }
     </script>
+
 </head>
 
 <body>
-    <div id="mymusic">
+    <div style="position: absolute; display: grid;height:100%;width: 100%;grid-template-rows: 80px auto 80px;">
+        <div id="mymusic">
+        </div>
+        <div id="list" style="height: 60px;padding: 10px;overflow-y: auto;height: 100%;box-sizing:border-box;"></div>
+        <div style="position:relative; background-color: coral;">
+            <div id="localmusic" style="position:absolute;width: 160px;height:40px;top:0;bottom:0;padding: 5px;margin:auto 10px;box-sizing: border-box;border: #eee .5px solid;border-radius: 2px;background-color:gray;color:#fff;text-align: center;display: grid;align-content: center;">选择本地音乐</div>
+        </div>
 
     </div>
-    <div id="localmusic">选择本地音乐</div>
 </body>
 
 </html>
