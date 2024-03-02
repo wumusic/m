@@ -26,7 +26,9 @@
                 //alert("111")
                 var musicselecter = document.createElement("input");
                 musicselecter.type = "file";
-                musicselecter.multiple = "multiple";
+               if(!/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(device)){
+                    musicselecter.multiple = "multiple";
+                }
                 musicselecter.accept="audio/*"
                 musicselecter.addEventListener("change", () => {
                     var files = musicselecter.files;
