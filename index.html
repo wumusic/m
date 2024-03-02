@@ -10,20 +10,20 @@
     <script src="mlist.js"></script>
     <script src="musicplayer.js"></script>
     <script>
-        $(window).ready(function(){{
+        $(window).ready(function(){
              $("#localmusic").on("click",function(){
-           var musicselecter= document.createElement("input");
-            musicselecter.type="file";
-            musicseledter.addEventLisner("change",function(){
-                var file=musicselecter.files[0];
-                var url=URL.createObjectURL(file)
-                data.music.push({
-                 "id": "n",
-                 "audio": url,
-                 "name": file.name
-                 });
-            })
-        });
+                 var musicselecter= document.createElement("input");
+                 musicselecter.type="file";
+                 musicseledter.addEventLisner("change",function(){
+                     var file=musicselecter.files[0];
+                     var url=URL.createObjectURL(file)
+                     data.music.push({
+                         "id": "n",
+                         "audio": url,
+                         "name": file.name
+                     });
+                 })
+             });
         })
        
     </script>
