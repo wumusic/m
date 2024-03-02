@@ -10,8 +10,9 @@
     <script src="mlist.js"></script>
     <script src="musicplayer.js"></script>
     <script>
-        $("#localmusic").on("click",function(){
-           var musicselecter= document.creatElement("input");
+        $(window).ready(function(){{
+             $("#localmusic").on("click",function(){
+           var musicselecter= document.createElement("input");
             musicselecter.type="file";
             musicseledter.addEventLisner("change",function(){
                 var file=musicselecter.files[0];
@@ -23,6 +24,8 @@
                  });
             })
         });
+        })
+       
     </script>
 </head>
 
