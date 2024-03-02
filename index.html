@@ -9,12 +9,28 @@
     <script src="jquery-1.9.1.min.js"></script>
     <script src="mlist.js"></script>
     <script src="musicplayer.js"></script>
+    <script>
+        $("#localmusic").on("click",function(){
+           var musicselecter= document.creatElement("input");
+            musicselecter.type="file";
+            musicseledter.addEventLisner("change",function(){
+                var file=musicselecter.files[0];
+                var url=URL.createObjectURL(file)
+                data.music.push({
+                 "id": "n",
+                 "audio": url,
+                 "name": file.name
+                 });
+            })
+        });
+    </script>
 </head>
 
 <body>
     <div id="mymusic">
 
     </div>
+    <div id="localmusic">选择本地音乐</div>
 </body>
 
 </html>
