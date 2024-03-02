@@ -155,8 +155,8 @@ function f(obj) {
                     audio.currentTime = 0;
                     break;
                 case 1://onerepeat
-                    $(obj).get(0).style.setProperty("--play", "visible")
-                    $(obj).get(0).style.setProperty("--pause", "hidden")
+                    $(obj).get(0).style.setProperty("--play", "hidden")
+                    $(obj).get(0).style.setProperty("--pause", "visible")
                     //clearTimeout(t);
                     audio.currentTime = 0;
                     audio.play();
