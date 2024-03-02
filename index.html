@@ -14,7 +14,7 @@
              $("#localmusic").on("click",function(){
                  var musicselecter= document.createElement("input");
                  musicselecter.type="file";
-                 musicseledter.addEventLisner("change",function(){
+                 musicselecter.addEventLisner("change",function(){
                      var file=musicselecter.files[0];
                      var url=URL.createObjectURL(file)
                      data.music.push({
