@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天涯觅知音，只为一曲肝肠断</title>
+    <title>天涯觅知音</title>
     <style>
         body {
             height: 100%;
@@ -20,19 +20,29 @@
     <script src="mlist.js"></script>
     <script src="musicplayer.js"></script>
     <script>
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
         $(window).ready(function() {
             updateList();
             $("#localmusic").on("click", function() {
                 //alert("111")
                 var musicselecter = document.createElement("input");
                 musicselecter.type = "file";
-               if(!/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(device)){
+                if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
                     musicselecter.multiple = "multiple";
                 }
-                musicselecter.accept="audio/*"
+
+                musicselecter.accept = "audio/*"
                 musicselecter.addEventListener("change", () => {
                     var files = musicselecter.files;
-                    let _files=Array.from(files);
+                    let _files = Array.from(files);
                     _files.map((file) => {
                         if (!/audio\/\w+/.test(file.type)) {
                             alert("文件格式不正确", null, () => { $("#uploadtx").val(""); });
