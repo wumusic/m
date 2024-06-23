@@ -10,11 +10,7 @@ $.fn.musicBox = function (data) {
         var viewBox = $('<div style="background-color:#edeaea;width: 100%;height: 80px;display: grid;grid-template-columns: 80px auto;"></div>').appendTo(obj);
         var audioElement = $('<audio controls="controls" id="' + obj.attr("id") + '_music" mindex="1" hidden="hidden"></audio>').appendTo(viewBox);
         audio = audioElement[0];
-        var picBOX = $('<div style="position:relative; background-color:gray;height: 100%;width: 80px;"><svg viewBox="0 0 80 80" fill="#fff"><path
-     style="fill:#000000"
-     d="M 63.333333,145.68958 C 34.089623,130.86633 48.391337,90.666667 82.908668,90.666667 c 8.06615,0 8.695684,2.43584 -6.908668,-26.731507 -16.993918,-31.764697 -16.558908,-37.99605 2.824193,-40.455468 10.934897,-1.387471 19.011811,-4.46675 23.209957,-8.848667 7.01917,-7.3264335 9.96729,-5.0151732 9.96378,7.811358 -0.004,15.13323 -6.83951,22.224284 -21.422902,22.224284 -5.079313,0 -9.236595,0.362356 -9.238405,0.805235 -0.0043,1.062896 11.273375,25.547955 15.289373,33.194765 11.901824,22.662113 14.698944,36.528993 11.684604,47.983763 -3.34974,12.72934 -14.868071,18.92944 -17.678416,19.91557 -8.675197,3.04407 -16.787295,2.86978 -27.298851,-0.87642 z"
-     id="path1"
-     sodipodi:nodetypes="ssssscscssss" /></svg></div>').appendTo(viewBox);
+        var picBOX = $('<div style="position:relative; background-color:gray;height: 100%;width: 80px;"><svg viewBox="0 0 160 160" fill="#fff"><path style="fill:#000000" d="M 63.333333,145.68958 C 34.089623,130.86633 48.391337,90.666667 82.908668,90.666667 c 8.06615,0 8.695684,2.43584 -6.908668,-26.731507 -16.993918,-31.764697 -16.558908,-37.99605 2.824193,-40.455468 10.934897,-1.387471 19.011811,-4.46675 23.209957,-8.848667 7.01917,-7.3264335 9.96729,-5.0151732 9.96378,7.811358 -0.004,15.13323 -6.83951,22.224284 -21.422902,22.224284 -5.079313,0 -9.236595,0.362356 -9.238405,0.805235 -0.0043,1.062896 11.273375,25.547955 15.289373,33.194765 11.901824,22.662113 14.698944,36.528993 11.684604,47.983763 -3.34974,12.72934 -14.868071,18.92944 -17.678416,19.91557 -8.675197,3.04407 -16.787295,2.86978 -27.298851,-0.87642 z" id="path1"/></svg></div>').appendTo(viewBox);
         var controlBox = $('<div style="display: grid; grid-template-rows: auto 3px;background-color:gray;width: 100%;height: 100%;">').appendTo(viewBox);
         var controlBtns = $('<div style="background-color: coral; display: grid; grid-template-columns: 35px 35px 35px 35px auto;grid-gap: 3px; align-items: center;text-align: center;padding: 6px;">').appendTo($(controlBox));
 
